@@ -1,32 +1,26 @@
 # FileInfo
 
 ## Table of Contents
-
 * [About](#about)
-* [Installation](#installation)
-* [Configuration](#configuration)
+* [Getting Started](#getting-started)
 * [Usage](#usage)
 * [API](#api)
 * [Testing](#testing)
 * [Contributors](#contributors)
-* [Copyright](#copyright)
 * [License](#license)
 
 ## <a name="about"></a>About
-FileInfo is nothing more than a simple wrapper for PHP's `path_info()` function 
-but with added mimetype support. FileInfo does NOT make use of the `path_info()` 
-or the `file_info()` functions within the class either.
+FileInfo is simply a class that mimics the functionality of:
+- `path_info()`
+- `file_info()`
+- `new finfo()`
 
-## <a name="installation"></a>Installation
-
-
-## <a name="configuration"></a>Configuration
-You may pass `true` as the second argument to the constructor to check for file existance.
-E.g. `new FileInfo('file.txt', true);`
+## <a name="getting-started"></a>Getting Started
+1. PHP 5.3.x is required
+2. Install manually
 
 ## <a name="usage"></a>Usage
-
-Creating a new FileInfo instance:
+Include and instantiate:
 
 ```php
 require 'path\to\FileInfo.php';
@@ -66,12 +60,13 @@ I currently do not know much about unit testing. However if someone is able to u
 test for me that would be greatly appreciated.
 
 ## <a name="contributors"></a>Contributors
-* "Nathan Bishop" <nbish11@hotmail.com>
 
-## <a name="copyright"></a>Copyright
-Copyright &copy; 2013, Nathan Bishop
 
-## <a name="license"></a>License (GPL)
+## <a name="license"></a>License
+
+(GNU General Public License, version 2)
+
+Copyright &copy; 2013, [Nathan Bishop](nbish11@hotmail.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
