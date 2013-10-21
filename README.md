@@ -6,6 +6,7 @@
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [Usage](#usage)
+* [API](#api)
 * [Testing](#testing)
 * [Contributors](#contributors)
 * [Copyright](#copyright)
@@ -33,27 +34,31 @@ require 'path\to\FileInfo.php';
 $finfo = new FileInfo('path\to\file.txt');
 ```
 
-Get mimetype from one of the functions:
+Get mimetype using a function:
 
-`$finfo->getMimeType(); // returns 'text/plain'`
+```php
+$finfo->getMimeType(); // returns 'text/plain'
+```
 
 Or get mimetype as a class property:
 
-`$finfo->mimetype; // returns 'text/plain'`
+```php
+$finfo->mimetype; // returns 'text/plain'
+```
 
-## API
+## <a name="api"></a>API
 
-Below is a list of the public methods available to use.
+Below is a list of the public methods available for use.
 
 ```php
 $finfo->
-    __construct($file, $exists = false)     // Sets the file and optionally checks for file existance.
-    getDirectory()                          // Returns the directory.
-    getBaseName()                           // Returns the basename (includes extension).
-    getExtension()                          // Returns the extension.
-    getFileName()                           // Returns the filename (basename without extension).
-    getMimeType()                           // Returns the mimetype/content-type.
-    __get($key)                             // Arbitrarily returns the "get" functions as class properties.
+    __construct($file, $exists = false)     // Set file and check for file existance.
+    getDirectory()                          // Get the directory.
+    getBaseName()                           // Get the basename (includes extension).
+    getExtension()                          // Get the file extension.
+    getFileName()                           // Get the filename (basename without extension).
+    getMimeType()                           // Get the mimetype/content-type.
+    __get($key)                             // Get a non-existant class property.
 ```
 
 ## <a name="testing"></a>Testing
