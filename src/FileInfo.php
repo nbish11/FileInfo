@@ -20,7 +20,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author     Nathan Bishop <nbish11@hotmail.com>
- * @version    0.0.1
+ * @version    0.1.1
  * @copyright  2013 Nathan Bishop
  * @license    GPLv2
  * @link       https://github.com/nbish11/FileInfo
@@ -115,6 +115,27 @@ class FileInfo
         $mimes = $this->getMimeTypes();
     
         return isset($mimes[$ext]) ? $mimes[$ext] : self::DEFAULT_MIMETYPE;
+    }
+    
+    /**
+     * Determines if a an arbitrary class property exists. Used
+     * in conjection with __get().
+     * 
+     * @param string $key 
+     * 
+     * @return boolean
+     */
+    public function __isset($key)
+    {
+        $allowed = array(
+            'directory',
+            'basename',
+            'extension',
+            'filename',
+            'mimetype'
+        );
+        
+        return in_array(strtolower($key), $allowed);
     }
     
     /**
