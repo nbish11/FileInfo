@@ -2,12 +2,36 @@
 
 class FileInfoTest extends PHPUnit_Framework_TestCase
 {
+    private $finfo;
+
+    /**
+     * Setup the set environment.
+     */
     public function setUp()
     {
         $this->finfo = new FileInfo('/path/to/file.txt');
     }
     
     /**
+     * Tear down the test environment.
+     */
+    public function tearDown()
+    {
+        $this->finfo = null;
+    }
+    
+    /**
+     * Test instance of $this->finfo;
+     */
+    public function testInstanceOf()
+    {
+        $this->assertInstanceOf('FileInfo', $this->finfo);
+    }
+    
+    /**
+     * Make sure the correct exception is thrown when an
+     * invalid data type is passed in through the constructor.
+     * 
      * @expectedException InvalidArgumentException
      */
     public function testExceptionIsThrownWhenANonStringIsProvided()
@@ -16,6 +40,9 @@ class FileInfoTest extends PHPUnit_Framework_TestCase
     }
     
     /**
+     * Make sure the correct exception is thrown when checking
+     * if the file exists, and it doesn't.
+     * 
      * @expectedException Exception
      */
     public function testExceptionIsThrownWhenFileDoesNotExist()
@@ -23,63 +50,47 @@ class FileInfoTest extends PHPUnit_Framework_TestCase
         $finfo = new FileInfo('path/to/file.txt', true);
     }
     
+    /**
+     * Does a bunch of tests on the magic __get() 
+     * and __set() methods.
+     */
+    public function testMagicProperties()
+    {
+        // Exists
+        $this->assertTrue(isset($this->finfo->filename));
+        
+        // Retrieves
+        $this->assertSame('file.txt', $this->finfo->basename);
+        
+        // Allows for random casing
+        $this->assertSame('text/plain', $this->finfo->mImETypE);
+        
+        // Returns null if not allowed
+        $this->assertNull($this->finfo->notAllowedProperty);
+    }
+    
     public function testGetDirectoryUsingClassMethod()
     {
-        $this->assertEquals('/path/to', $this->finfo->getDirectory());
+        $this->assertSame('/path/to', $this->finfo->getDirectory());
     }
     
     public function testGetBaseNameUsingClassMethod()
     {
-        $this->assertEquals('file.txt', $this->finfo->getBaseName());
+        $this->assertSame('file.txt', $this->finfo->getBaseName());
     }
     
     public function testGetExtensionUsingClassMethod()
     {
-        $this->assertEquals('txt', $this->finfo->getExtension());
+        $this->assertSame('txt', $this->finfo->getExtension());
     }
     
     public function testGetFileNameUsingClassMethod()
     {
-        $this->assertEquals('file', $this->finfo->getFileName());
+        $this->assertSame('file', $this->finfo->getFileName());
     }
     
     public function testGetMimeTypeUsingClassMethod()
     {
-        $this->assertEquals('text/plain', $this->finfo->getMimeType());
-    }
-    
-    public function testGetClassPropertyWithMixedCaseInsideMagicGetMethod()
-    {
-        $this->assertEquals('text/plain', $this->finfo->mImETypE);
-    }
-    
-    public function testGetDirectoryUsingMagicGetMethod()
-    {
-        $this->assertEquals('/path/to', $this->finfo->directory);
-    }
-    
-    public function testGetBaseNameUsingMagicGetMethod()
-    {
-        $this->assertEquals('file.txt', $this->finfo->basename);
-    }
-    
-    public function testGetExtensionUsingMagicGetMethod()
-    {
-        $this->assertEquals('txt', $this->finfo->extension);
-    }
-    
-    public function testGetFileNameUsingMagicGetMethod()
-    {
-        $this->assertEquals('file', $this->finfo->filename);
-    }
-    
-    public function testGetMimeTypeUsingMagicGetMethod()
-    {
-        $this->assertEquals('text/plain', $this->finfo->mimetype);
-    }
-    
-    public function testReturnNullUsingMagicGetMethodIfPropertyNotDefined()
-    {
-        $this->assertNull($this->finfo->nonExistantProperty);
+        $this->assertSame('text/plain', $this->finfo->getMimeType());
     }
 }

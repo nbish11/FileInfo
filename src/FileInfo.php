@@ -32,7 +32,6 @@ class FileInfo
      * If a mimetype was NOT found this will be returned; which in
      * most cases is more than sufficient.
      * 
-     * 
      */
     const DEFAULT_MIMETYPE = 'application/octet-stream';
     
@@ -91,7 +90,7 @@ class FileInfo
      */
     public function getExtension()
     {
-        return substr(strrchr($this->getBasename(), "."), 1);
+        return substr(strrchr($this->getBasename(), '.'), 1);
     }
     
     /**
@@ -119,7 +118,7 @@ class FileInfo
     
     /**
      * Determines if a an arbitrary class property exists. Used
-     * in conjection with __get().
+     * in conjunction with __get().
      * 
      * @param string $key 
      * 
@@ -139,7 +138,7 @@ class FileInfo
     }
     
     /**
-     * Arbitrarily returns non-existent class property's.
+     * Arbitrarily returns non-existent class properties.
      * 
      * @param string $key 
      * 
