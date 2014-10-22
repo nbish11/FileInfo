@@ -13,9 +13,8 @@
 
 ## <a name="about"></a>About
 FileInfo is simply a class that mimics the functionality of:
-- `path_info()`
-- `file_info()`
-- `new finfo()`
+- [`path_info()`](http://php.net/manual/en/function.pathinfo.php)
+- [`file_info` | `finfo`](http://php.net/manual/en/book.fileinfo.php)
 
 ## <a name="getting-started"></a>Getting Started
 1. PHP 5.3.x is required
@@ -27,7 +26,7 @@ Include and instantiate:
 ```php
 require 'path\to\FileInfo.php';
 
-$finfo = new FileInfo('path\to\file.txt');
+$finfo = new FileInfo('path\to\file.txt', true);
 ```
 
 Get mimetype using a function:
@@ -48,18 +47,20 @@ Below is a list of the public methods available for use.
 
 ```php
 $finfo->
-    __construct($file, $exists = false)     // Set file and check for file existance.
+    __construct($file, $exists = false)     // Set file and check for file existence.
     getDirectory()                          // Get the directory.
-    getBaseName()                           // Get the basename (includes extension).
+    getBaseName()                           // Get the basename (with extension).
     getExtension()                          // Get the file extension.
     getFileName()                           // Get the filename (basename without extension).
     getMimeType()                           // Get the mimetype/content-type.
+    __isset($key)                           // Allows to check __get() properties for existence.
     __get($key)                             // Get a non-existant class property.
 ```
 
 ## <a name="testing"></a>Testing
-I currently do not know much about unit testing. However if someone is able to unit 
-test for me that would be greatly appreciated.
+This project keeps all tests stored in the `/tests` folder
+and uses the [PHPUnit](https://github.com/sebastianbergmann/phpunit/) 
+testing framework.
 
 ## <a name="contributors"></a>Contributors
 
