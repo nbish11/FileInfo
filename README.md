@@ -1,6 +1,6 @@
 # FileInfo
 
-[![Build Status](https://api.travis-ci.org/nbish11/FileInfo.svg?branch=master](https://travis-ci.org/nbish11/FileInfo.php)
+[![Build Status](https://travis-ci.org/nbish11/FileInfo.svg?branch=master)](https://travis-ci.org/nbish11/FileInfo)
 
 ## Table of Contents
 * [About](#about)
