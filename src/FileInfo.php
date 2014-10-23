@@ -2,7 +2,7 @@
 /**
  * Custom FileInfo wrapper.
  *
- * PHP version 5
+ * PHP version 5.3
  * 
  * Copyright (C) 2013  Nathan Bishop
  *
