@@ -17,8 +17,8 @@
 class FileInfo
 {
     /**
-     * If a mimetype was NOT found this will be returned; which in
-     * most cases is more than sufficient.
+     * If a mimetype was NOT found this will be returned; which is
+     * sufficient in most cases.
      *
      * @var string
      */
@@ -30,6 +30,13 @@ class FileInfo
      * @var string
      */
     private $file;
+
+    /**
+     * The loaded media types.
+     *
+     * @var array[]
+     */
+    private static $mediaTypes;
 
     /**
      * Constructs a new `FileInfo` instance.
@@ -45,6 +52,11 @@ class FileInfo
 
         if ($exists && !file_exists($file)) {
             throw new Exception('The file was not found at the following location: ' . $file);
+        }
+
+        // cache loaded media types
+        if (self::$mediaTypes === null) {
+            self::$mediaTypes = $this->loadMediaTypes();
         }
 
         $this->file = $file;
@@ -91,16 +103,13 @@ class FileInfo
     }
 
     /**
-     * The content-type/mimetype of the file.
+     * The media type of the file, or the most likely.
      *
-     * @return string E.g. application/octet-stream
+     * @return string E.g. application/json
      */
     public function getMimeType()
     {
-        $ext = $this->getExtension();
-        $mimes = $this->getMimeTypes();
-
-        return isset($mimes[$ext]) ? $mimes[$ext] : self::DEFAULT_MIMETYPE;
+        return $this->guessMediaTypeFromExtension();
     }
 
     /**
@@ -152,13 +161,26 @@ class FileInfo
     }
 
     /**
-     * Retrieve a list of supported mime-types.
+     * Guess the media type from the file extension.
      *
-     * Based on Apache's "mime.types" file.
+     * @return string
+     */
+    private function guessMediaTypeFromExtension()
+    {
+        $mediaType = array_filter(self::$mediaTypes, function ($extensions) {
+            return in_array($this->getExtension(), $extensions);
+        });
+
+        return empty($mediaType) ? self::DEFAULT_MIMETYPE : key($mediaType);
+    }
+
+    /**
+     * Loads the "mediatypes.json" file.
      *
+     * @see https://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types
      * @return array
      */
-    private function getMimeTypes()
+    private function loadMediaTypes()
     {
         return json_decode(file_get_contents(__DIR__ . '/mediatypes.json'), true);
     }
