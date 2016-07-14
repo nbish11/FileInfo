@@ -11,7 +11,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase
     {
         $this->finfo = new FileInfo('/path/to/file.txt');
     }
-    
+
     /**
      * Tear down the test environment.
      */
@@ -19,7 +19,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase
     {
         $this->finfo = null;
     }
-    
+
     /**
      * Test instance of $this->finfo;
      */
@@ -27,70 +27,70 @@ class FileInfoTest extends PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('FileInfo', $this->finfo);
     }
-    
+
     /**
      * Make sure the correct exception is thrown when an
      * invalid data type is passed in through the constructor.
-     * 
+     *
      * @expectedException InvalidArgumentException
      */
     public function testExceptionIsThrownWhenANonStringIsProvided()
     {
         $finfo = new FileInfo(423);
     }
-    
+
     /**
      * Make sure the correct exception is thrown when checking
      * if the file exists, and it doesn't.
-     * 
+     *
      * @expectedException Exception
      */
     public function testExceptionIsThrownWhenFileDoesNotExist()
     {
         $finfo = new FileInfo('path/to/file.txt', true);
     }
-    
+
     /**
-     * Does a bunch of tests on the magic __get() 
+     * Does a bunch of tests on the magic __get()
      * and __set() methods.
      */
     public function testMagicProperties()
     {
         // Exists
         $this->assertTrue(isset($this->finfo->filename));
-        
+
         // Retrieves
         $this->assertSame('file.txt', $this->finfo->basename);
-        
+
         // Allows for random casing
-        $this->assertSame('text/plain', $this->finfo->mImETypE);
-        
+        $this->assertSame('text/plain', $this->finfo->mediatype);
+
         // Returns null if not allowed
         $this->assertNull($this->finfo->notAllowedProperty);
     }
-    
+
     public function testGetDirectoryUsingClassMethod()
     {
         $this->assertSame('/path/to', $this->finfo->getDirectory());
     }
-    
+
     public function testGetBaseNameUsingClassMethod()
     {
         $this->assertSame('file.txt', $this->finfo->getBaseName());
     }
-    
+
     public function testGetExtensionUsingClassMethod()
     {
         $this->assertSame('txt', $this->finfo->getExtension());
     }
-    
+
     public function testGetFileNameUsingClassMethod()
     {
         $this->assertSame('file', $this->finfo->getFileName());
     }
-    
+
     public function testGetMimeTypeUsingClassMethod()
     {
-        $this->assertSame('text/plain', $this->finfo->getMimeType());
+        $this->assertSame('text/plain', $this->finfo->getMediaType());
     }
 }

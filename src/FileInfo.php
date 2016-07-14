@@ -12,7 +12,7 @@
  * @property string $basename
  * @property string $extension
  * @property string $filename
- * @property string $mimetype
+ * @property string $mediatype
  */
 class FileInfo
 {
@@ -107,7 +107,7 @@ class FileInfo
      *
      * @return string E.g. application/json
      */
-    public function getMimeType()
+    public function getMediaType()
     {
         return $this->guessMediaTypeFromExtension();
     }
@@ -125,7 +125,7 @@ class FileInfo
             'basename',
             'extension',
             'filename',
-            'mimetype'
+            'mediatype'
         );
 
         return in_array(strtolower($key), $allowed);
@@ -152,8 +152,8 @@ class FileInfo
             case 'filename':
                 return $this->getFileName();
 
-            case 'mimetype':
-                return $this->getMimeType();
+            case 'mediatype':
+                return $this->getMediaType();
 
             default:
                 return null;
