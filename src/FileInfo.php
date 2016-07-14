@@ -162,8 +162,10 @@ class FileInfo
      */
     private function guessMediaTypeFromExtension()
     {
-        $mediaType = array_filter(self::$mediaTypes, function ($extensions) {
-            return in_array($this->getExtension(), $extensions);
+        $self = $this;  // hack for PHP 5.3, 5.4 and up works as expected.
+
+        $mediaType = array_filter(self::$mediaTypes, function ($extensions) use ($self) {
+            return in_array($self->getExtension(), $extensions);
         });
 
         return empty($mediaType) ? self::DEFAULT_MIMETYPE : key($mediaType);
