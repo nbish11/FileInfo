@@ -6,7 +6,7 @@
  * @version 1.0.0
  * @author Nathan Bishop (nbish11)
  * @copyright 2016 Nathan Bishop
- * @license GPL-2.0
+ * @license MIT
  *
  * @property string $directory
  * @property string $basename
