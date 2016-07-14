@@ -151,7 +151,7 @@ class FileInfo
                 return $this->getMediaType();
 
             default:
-                return null;
+                throw new Exception(sprintf('Undefined property: %s::$%s', __CLASS__, $key));
         }
     }
 
@@ -162,7 +162,7 @@ class FileInfo
      */
     private function guessMediaTypeFromExtension()
     {
-        $self = $this;  // hack for PHP 5.3, 5.4 and up works as expected.
+        $self = $this;  // Hack for PHP 5.3. 5.4 and up works as expected.
 
         $mediaType = array_filter(self::$mediaTypes, function ($extensions) use ($self) {
             return in_array($self->getExtension(), $extensions);

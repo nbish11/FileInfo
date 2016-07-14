@@ -53,9 +53,6 @@ class FileInfoTest extends PHPUnit_Framework_TestCase
 
         // Allows for random casing
         $this->assertSame('text/plain', $this->finfo->mediatype);
-
-        // Returns null if not allowed
-        $this->assertNull($this->finfo->notAllowedProperty);
     }
 
     public function testGetDirectoryUsingClassMethod()
@@ -81,5 +78,12 @@ class FileInfoTest extends PHPUnit_Framework_TestCase
     public function testGetMimeTypeUsingClassMethod()
     {
         $this->assertSame('text/plain', $this->finfo->getMediaType());
+    }
+
+    public function testThrowsErrorWhenAccesingAnUnknownProperty()
+    {
+        $this->setExpectedException('Exception', 'Undefined property: FileInfo::$notAllowedProperty');
+
+        $value = $this->finfo->notAllowedProperty;
     }
 }
