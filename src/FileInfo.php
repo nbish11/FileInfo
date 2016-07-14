@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Custom FileInfo wrapper.
+ * Provides a simple and flexible API wrapper around PHP's pathinfo function.
  *
  * @version 1.0.0
  * @author Nathan Bishop (nbish11)
@@ -41,17 +41,12 @@ class FileInfo
     /**
      * Constructs a new `FileInfo` instance.
      *
-     * @param string  $file   Path to file.
-     * @param boolean $exists Check if file exists.
+     * @param string $file Path to file.
      */
-    public function __construct($file, $exists = false)
+    public function __construct($file)
     {
         if ( ! is_string($file)) {
             throw new InvalidArgumentException('FileInfo expects a string.');
-        }
-
-        if ($exists && !file_exists($file)) {
-            throw new Exception('The file was not found at the following location: ' . $file);
         }
 
         // cache loaded media types

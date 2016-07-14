@@ -40,17 +40,6 @@ class FileInfoTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Make sure the correct exception is thrown when checking
-     * if the file exists, and it doesn't.
-     *
-     * @expectedException Exception
-     */
-    public function testExceptionIsThrownWhenFileDoesNotExist()
-    {
-        $finfo = new FileInfo('path/to/file.txt', true);
-    }
-
-    /**
      * Does a bunch of tests on the magic __get()
      * and __set() methods.
      */
