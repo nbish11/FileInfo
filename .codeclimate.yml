@@ -1,0 +1,23 @@
+---
+engines:
+    duplication:
+        enabled: true
+        config:
+            languages:
+                - php
+    fixme:
+        enabled: true
+    phan:
+        enabled: true
+    phpcodesniffer:
+        enabled: true
+        config:
+            standard: "PSR1,PSR2"
+    phpmd:
+        enabled: true
+
+ratings:
+    paths:
+        - "**.php"
+exclude_paths:
+    - tests/

@@ -2,7 +2,8 @@
     "name": "nbish11/fileinfo",
     "description": "A FileInfo class for thos without support for PHP's finfo class.",
     "require-dev": {
-        "phpunit/phpunit": "^4.8"
+        "phpunit/phpunit": "^4.8",
+        "codeclimate/php-test-reporter": "^0.3.2"
     },
     "license": "GPL-2.0",
     "authors": [
