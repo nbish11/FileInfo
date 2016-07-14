@@ -1,127 +1,112 @@
 <?php
+
 /**
  * Custom FileInfo wrapper.
  *
- * PHP version 5.3
- * 
- * Copyright (C) 2013  Nathan Bishop
+ * @version 1.0.0
+ * @author Nathan Bishop (nbish11)
+ * @copyright 2016 Nathan Bishop
+ * @license GPL-2.0
  *
- * LICENSE: This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author     Nathan Bishop <nbish11@hotmail.com>
- * @version    0.1.1
- * @copyright  2013 Nathan Bishop
- * @license    GPLv2
- * @link       https://github.com/nbish11/FileInfo
+ * @property string $directory
+ * @property string $basename
+ * @property string $extension
+ * @property string $filename
+ * @property string $mimetype
  */
-
 class FileInfo
 {
     /**
      * If a mimetype was NOT found this will be returned; which in
      * most cases is more than sufficient.
-     * 
+     *
+     * @var string
      */
     const DEFAULT_MIMETYPE = 'application/octet-stream';
-    
+
     /**
      * The file to check for.
-     * 
-     * @var string $file
+     *
+     * @var string
      */
     private $file;
 
     /**
-     * Constructor
-     * 
-     * @param string  $file    Path to file.
-     * @param boolean $exists  Check if file exists.
-     * 
-     * @return void
+     * Constructs a new `FileInfo` instance.
+     *
+     * @param string  $file   Path to file.
+     * @param boolean $exists Check if file exists.
      */
     public function __construct($file, $exists = false)
     {
         if ( ! is_string($file)) {
             throw new InvalidArgumentException('FileInfo expects a string.');
         }
-        
+
         if ($exists && !file_exists($file)) {
             throw new Exception('The file was not found at the following location: ' . $file);
         }
-    
+
         $this->file = $file;
     }
-    
+
     /**
-     * The path to the file.
-     * 
-     * @return string
+     * Retrieve the directory of the file.
+     *
+     * @return string E.g. C:/wamp/www/FileInfo/src
      */
     public function getDirectory()
     {
         return dirname($this->file);
     }
-    
+
     /**
-     * The filename and the extension.
-     * 
-     * @return string
+     * Retrieve the filename and the extension.
+     *
+     * @return string E.g. FileInfo.php
      */
     public function getBaseName()
     {
         return basename($this->file);
     }
-    
+
     /**
      * The extension of the file.
-     * 
-     * @return string
+     *
+     * @return string E.g. php
      */
     public function getExtension()
     {
         return substr(strrchr($this->getBasename(), '.'), 1);
     }
-    
+
     /**
      * The basename without the extension.
-     * 
-     * @return string
+     *
+     * @return string E.g. FileInfo
      */
     public function getFileName()
     {
         return basename($this->file, '.' . $this->getExtension());
     }
-    
+
     /**
      * The content-type/mimetype of the file.
-     * 
-     * @return string
+     *
+     * @return string E.g. application/octet-stream
      */
     public function getMimeType()
     {
         $ext = $this->getExtension();
         $mimes = $this->getMimeTypes();
-        
+
         return isset($mimes[$ext]) ? $mimes[$ext] : self::DEFAULT_MIMETYPE;
     }
-    
+
     /**
-     * Determines if a an arbitrary class property exists. Used
-     * in conjunction with __get().
-     * 
-     * @param string $key 
-     * 
+     * Checks if an arbitrary property exists.
+     *
+     * @param  string $key
      * @return boolean
      */
     public function __isset($key)
@@ -133,15 +118,14 @@ class FileInfo
             'filename',
             'mimetype'
         );
-        
+
         return in_array(strtolower($key), $allowed);
     }
-    
+
     /**
-     * Arbitrarily returns non-existent class properties.
-     * 
-     * @param string $key 
-     * 
+     * Retrieve an arbitrary property.
+     *
+     * @param  string $key
      * @return string
      */
     public function __get($key)
@@ -149,27 +133,29 @@ class FileInfo
         switch (strtolower($key)) {
             case 'directory':
                 return $this->getDirectory();
-                
+
             case 'basename':
                 return $this->getBaseName();
-                
+
             case 'extension':
                 return $this->getExtension();
-                
+
             case 'filename':
                 return $this->getFileName();
-                
+
             case 'mimetype':
                 return $this->getMimeType();
-                
+
             default:
                 return null;
         }
     }
-    
+
     /**
-     * Returns an array of all mimetypes currently defined.
-     * 
+     * Retrieve a list of supported mime-types.
+     *
+     * Based on Apache's "mime.types" file.
+     *
      * @return array
      */
     private function getMimeTypes()
@@ -899,7 +885,7 @@ class FileInfo
             'zir'   => 'application/vnd.zul',
             'zirz'  => 'application/vnd.zul',
             'zmm'   => 'application/vnd.handheld-entertainment+xml',
-            
+
             // "audio/*"
             'aac'   => 'audio/x-aac',
             'adp'   => 'audio/adpcm',
@@ -945,7 +931,7 @@ class FileInfo
             'weba'  => 'audio/webm',
             'wma'   => 'audio/x-ms-wma',
             'xm'    => 'audio/xm',
-            
+
             // "chemical/*"
             'cdx'   => 'chemical/x-cdx',
             'cif'   => 'chemical/x-cif',
@@ -953,7 +939,7 @@ class FileInfo
             'cml'   => 'chemical/x-cml',
             'csml'  => 'chemical/x-csml',
             'xyz'   => 'chemical/x-xyz',
-            
+
             // "image/*"
             '3ds'   => 'image/x-3ds',
             'bmp'   => 'image/bmp',
@@ -1014,11 +1000,11 @@ class FileInfo
             'xif'   => 'image/vnd.xiff',
             'xpm'   => 'image/x-xpixmap',
             'xwd'   => 'image/x-xwindowdump',
-            
+
             // "message/*"
             'eml'   => 'message/rfc822',
             'mime'  => 'message/rfc822',
-            
+
             // "model/*"
             'dae'   => 'model/vnd.collada+xml',
             'dwf'   => 'model/vnd.dwf',
@@ -1039,7 +1025,7 @@ class FileInfo
             'x3dv'  => 'model/x3d+vrml',
             'x3dvz' => 'model/x3d+vrml',
             'x3dz'  => 'model/x3d+xml',
-            
+
             // "text/*"
             '3dml'  => 'text/vnd.in3d.3dml',
             'appcache' => 'text/cache-manifest',
@@ -1107,7 +1093,7 @@ class FileInfo
             'vcs'   => 'text/x-vcalendar',
             'wml'   => 'text/vnd.wap.wml',
             'wmls'  => 'text/vnd.wap.wmlscript',
-            
+
             // "video/*"
             '3g2'   => 'video/3gpp2',
             '3gp'   => 'video/3gpp',
@@ -1167,7 +1153,7 @@ class FileInfo
             'wmv'   => 'video/x-ms-wmv',
             'wmx'   => 'video/x-ms-wmx',
             'wvx'   => 'video/x-ms-wvx',
-            
+
             // "x-conference/*"
             'ice'   => 'x-conference/x-cooltalk'
         );
