@@ -1,6 +1,8 @@
 # FileInfo
 
 [![Build Status][build-img]][build-url]
+[![Code Climate][gpa-img]][gpa-url]
+[![Test Coverage][coverage-img]][coverage-url]
 
 Provides a simple and flexible API wrapper around PHP's [pathinfo](http://php.net/manual/en/function.pathinfo.php) method.
 
@@ -44,3 +46,7 @@ echo $finfo->mimetype;  // 'text/plain'
 
 [build-url]: https://travis-ci.org/nbish11/FileInfo
 [build-img]: https://travis-ci.org/nbish11/FileInfo.svg?branch=master
+[gpa-url]: https://codeclimate.com/github/nbish11/FileInfo
+[gpa-img]: https://codeclimate.com/github/nbish11/FileInfo/badges/gpa.svg
+[coverage-url]: https://codeclimate.com/github/nbish11/FileInfo/coverage
+[coverage-img]: https://codeclimate.com/github/nbish11/FileInfo/badges/coverage.svg
